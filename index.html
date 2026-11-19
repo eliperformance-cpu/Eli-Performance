@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="sq">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10090b">
+<meta name="description" content="ELI PERFORMANCE - Automotive Diagnostics & ECU Performance Workshop Platform">
+<title>ELI PERFORMANCE | Workshop Platform</title>
+<style>
+:root{--bg:#090708;--panel:#171113;--panel2:#100c0e;--line:#42252b;--blue:#f04452;--cyan:#ff6570;--muted:#b7a5a8;--white:#fff7f7;--green:#55d6a5;--red:#ff5967;--amber:#ffc66d}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 78% -15%,#55151e 0,transparent 38%),var(--bg);color:var(--white);font:14px/1.45 Inter,Arial,sans-serif}
+header{position:sticky;top:0;z-index:5;background:#120b0df2;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:14px clamp(14px,3vw,34px);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{font-weight:950;letter-spacing:1.5px;font-size:clamp(19px,3vw,27px)}.logo span,h1 span{color:var(--blue)}.tag{font-size:9px;letter-spacing:2px;color:var(--muted);margin-top:3px}.headright{display:flex;align-items:center;gap:10px}.online{font-size:10px;color:#ff9299;border:1px solid #71313b;border-radius:20px;padding:7px 9px}
+select,input,textarea,button{font:inherit}button{cursor:pointer}
+select,input,textarea{width:100%;min-width:0;padding:11px 12px;border-radius:9px;border:1px solid #42252b;background:#100b0d;color:white;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #f044521a}
+textarea{min-height:90px;resize:vertical}
+main{max-width:1250px;margin:auto;padding:23px clamp(13px,3vw,30px) 50px}
+
+.hero{position:relative;isolation:isolate;overflow:hidden;min-height:390px;display:flex;align-items:center;padding:clamp(24px,5vw,58px);margin:16px 0 18px;border:1px solid #71313b;border-radius:16px;background:#10090b url('assets/eli-amg-hero.png') center 58%/cover no-repeat;box-shadow:0 18px 55px #000a}
+.hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(5,3,4,.94) 0%,rgba(8,4,6,.78) 42%,rgba(8,4,6,.12) 100%),linear-gradient(0deg,rgba(5,3,4,.38),transparent 55%)}
+.hero-content{max-width:590px}.hero .eyebrow{color:#ff858e;font-size:11px}.hero h1{font-size:clamp(34px,5.6vw,66px);line-height:.98;letter-spacing:-1.8px;margin:12px 0}.hero h1 span{color:#ff4656}.hero .hero-lead{font-size:clamp(13px,1.7vw,16px);max-width:480px;color:#e5dadd;line-height:1.6;margin:12px 0 20px}.hero-actions{display:flex;gap:9px;flex-wrap:wrap}.hero .hero-tagline{font-size:12px;letter-spacing:2.5px;color:#fff;font-weight:900;margin-top:16px}
+.brand-strip{display:flex;gap:9px;justify-content:space-between;flex-wrap:wrap;margin:0 0 18px;padding:12px 14px;background:#120d0f;border:1px solid #42252b;border-radius:12px;color:#d8c7ca;font-size:11px;font-weight:900;letter-spacing:1px}
+.visual-services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 20px}
+.visual-card{position:relative;min-height:155px;overflow:hidden;border:1px solid #51232b;border-radius:12px;background:linear-gradient(145deg,#241418,#100b0d);padding:18px;display:flex;flex-direction:column;justify-content:flex-end}
+.visual-card:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.9),rgba(0,0,0,.08))}
+.visual-card>*{position:relative}.visual-card b{font-size:15px;color:#fff}.visual-card p{font-size:11px;color:#e3cfd2;margin:5px 0 0;max-width:280px}
+.visual-card.dtc{background-image:url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=900&q=80');background-size:cover;background-position:center}
+.visual-card.tuning{background-image:url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=900&q=80');background-size:cover;background-position:center}
+.visual-card.workshop{background-image:url('https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=900&q=80');background-size:cover;background-position:center}
+@media(max-width:700px){.hero{min-height:420px;background-position:60% center}.hero:before{background:linear-gradient(90deg,rgba(5,3,4,.94),rgba(8,4,6,.63)),linear-gradient(0deg,rgba(5,3,4,.45),transparent)}.visual-services{grid-template-columns:1fr}.visual-card{min-height:130px}}
+.eyebrow{font-size:10px;letter-spacing:2px;color:#ff8b93;font-weight:900}.hero h1{font-size:clamp(27px,4vw,42px);line-height:1.1;margin:9px 0}.muted{color:var(--muted);font-size:12px;line-height:1.55}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}.stat,.panel,.tile{background:linear-gradient(145deg,#211518,#120e10);border:1px solid var(--line);border-radius:13px}.stat{padding:14px}.stat b{display:block;font-size:22px;color:#ff6570}.stat small{font-size:9px;letter-spacing:.8px;color:var(--muted)}
+nav{display:flex;gap:7px;overflow:auto;padding:3px 0 9px;margin:15px 0 6px}nav button,.btn{white-space:nowrap;background:#211518;color:#eaf4ff;border:1px solid var(--line);padding:10px 13px;border-radius:9px;font-weight:750;font-size:12px}
+nav button.active,.btn.primary{background:linear-gradient(110deg,#a7192b,#f04452);border-color:#ff6570}
+.btn.ghost{background:transparent}.btn.danger{border-color:#63323a;color:#ffabb1}
+.panel{padding:clamp(15px,2.5vw,22px);margin-top:13px}.panel h2{margin:0 0 5px;font-size:19px}.panelhead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:13px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:13px}.field label{display:block;font-size:10px;color:var(--muted);margin:0 0 5px}.field.full{grid-column:1/-1}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:13px}.tile{padding:14px}.tile b{color:#ff6570}.tile p{color:var(--muted);font-size:12px;margin:7px 0 0}
+.searchgrid{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin:15px 0 10px}
+.status{padding:10px 12px;background:#160e10;border:1px solid var(--line);border-radius:9px;color:var(--muted);font-size:11px;margin-top:10px}.status.good{color:var(--green)}.status.bad{color:var(--red)}
+.resulthead{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px;margin:16px 0 8px}.results{display:grid;gap:8px}.result{background:#160e10;border:1px solid #42252b;border-radius:10px;padding:13px}.rhead{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.code{font-size:17px;font-weight:900;color:#ff6570}.pill{font-size:9px;border:1px solid #71313b;color:#ffd5d8;border-radius:20px;padding:4px 7px}.result p{font-size:13px;line-height:1.5;color:#d9e5f3;margin:8px 0 0}.note{font-size:10px;color:var(--muted);margin-top:7px}
+.tablewrap{overflow:auto;margin-top:13px;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;min-width:560px}th,td{text-align:left;padding:10px 11px;border-bottom:1px solid #42252b;font-size:11px}th{color:var(--cyan);background:#1b1114}td{color:#d9e5f3}tr:last-child td{border-bottom:0}
+.empty{padding:18px;border:1px dashed #71313b;border-radius:10px;color:var(--muted);font-size:12px;text-align:center;margin-top:12px}
+.pager{display:flex;justify-content:center;gap:8px;margin-top:12px}
+.badge{font-size:9px;padding:4px 7px;border-radius:20px;background:#0c2b27;color:#78e0b7;border:1px solid #22594c}
+
+.diag-overlay{position:fixed;inset:0;z-index:20;background:#050304eF;backdrop-filter:blur(8px);padding:14px;overflow:auto;display:flex;align-items:flex-start;justify-content:center}
+.diag-modal{width:min(850px,100%);margin:18px auto;background:#130d0f;border:1px solid #71313b;border-radius:16px;padding:clamp(15px,3vw,24px);box-shadow:0 24px 80px #000}
+.diag-steps{display:grid;gap:9px;margin-top:12px}
+.diag-step{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;background:#1b1114;border:1px solid #42252b;border-radius:11px;padding:12px}
+.diag-step input{width:19px;height:19px;accent-color:#f04452;margin:2px 0}
+.diag-step b{display:block;color:#fff;font-size:13px}.diag-step p{margin:4px 0 0;color:#b7a5a8;font-size:11px;line-height:1.5}
+.diag-step.done{border-color:#34745e;background:#102019}.diag-step.done b{color:#8ce0bd}
+.diag-overlay[hidden]{display:none!important}
+@media(max-width:600px){.diag-overlay{padding:7px}.diag-modal{margin:4px auto}.diag-step{padding:10px}}
+
+[hidden]{display:none!important}
+footer{text-align:center;padding:23px 12px;color:var(--muted);font-size:11px;line-height:1.8;border-top:1px solid var(--line)}footer a{color:var(--cyan);text-decoration:none}
+#reportPrint{display:none}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.searchgrid{grid-template-columns:1fr 1fr}.searchgrid input,.searchgrid .btn{grid-column:1/-1}.grid3{grid-template-columns:1fr 1fr}.online{display:none}}
+@media(max-width:460px){.grid,.grid3{grid-template-columns:1fr}.field.full{grid-column:auto}.stat{padding:11px}.stat b{font-size:19px}nav button{font-size:10px;padding:9px 10px}}
+@media print{body{background:white;color:#111}header,main,footer{display:none!important}#reportPrint{display:block!important;padding:28px;color:#111;font:13px Arial}#reportPrint h1{color:#a7192b}#reportPrint table{min-width:0}#reportPrint td,#reportPrint th{color:#111;border:1px solid #bbb}}
+</style>
+</head>
+<body>
+<header>
+ <div><div class="logo">ELI <span>PERFORMANCE</span></div><div class="tag">MORE POWER. MORE PERFORMANCE.</div></div>
+ <div class="headright"><span class="online">● WORKSHOP PLATFORM</span><select id="language" style="width:112px;padding:8px" aria-label="Language"><option value="sq">Shqip</option><option value="en">English</option><option value="de">Deutsch</option><option value="fr">Français</option></select></div>
+</header>
+<main>
+<section class="hero">
+ <div class="hero-content">
+  <div class="eyebrow">ELI PERFORMANCE · AUTOMOTIVE SPECIALISTS</div>
+  <h1>MORE POWER.<br><span>MORE PERFORMANCE.</span></h1>
+  <p class="hero-lead">Diagnostikim profesional, ECU tuning dhe zgjidhje performance për automjetin tënd.</p>
+  <div class="hero-actions">
+   <button class="btn primary" onclick="goTab('dtc')">Kërko DTC <span aria-hidden="true">→</span></button>
+   <a class="btn" href="tel:+38344400761" style="text-decoration:none">Telefono · 044 400 761</a> <a class="btn" href="tel:+33664707284" style="text-decoration:none">+33 6 64 70 72 84</a>
+  </div>
+  <div class="hero-tagline">ELI PERFORMANCE · OWNER BY ELION MUSLIU</div>
+ </div>
+</section>
+<div class="brand-strip" aria-label="Vehicle brands"><span>MERCEDES-AMG</span><span>BMW M</span><span>AUDI RS</span><span>PORSCHE</span><span>VW</span><span>PEUGEOT</span><span>RENAULT</span></div>
+<section class="visual-services" aria-label="ELI Performance services">
+ <article class="visual-card dtc"><b>DTC DATABASE</b><p>Kode defektesh dhe udhëzime diagnostikimi hap pas hapi.</p></article>
+ <article class="visual-card tuning"><b>ECU TUNING</b><p>Stage 1 · Stage 2 · ECU Remapping dhe optimizim performance.</p></article>
+ <article class="visual-card workshop"><b>DIAGNOSTICS & WORKSHOP</b><p>Kontroll profesional, testime dhe riparime të konfirmuara.</p></article>
+</section>
+<section class="stats">
+ <div class="stat"><b id="statDtc">12,128</b><small data-i18n="statDtc">DTC UNIQUE CODES (SOURCE)</small></div>
+ <div class="stat"><b id="statVehicles">0</b><small data-i18n="statVehicles">VEHICLES SAVED</small></div>
+ <div class="stat"><b id="statCustomers">0</b><small data-i18n="statCustomers">CUSTOMERS</small></div>
+ <div class="stat"><b id="statReports">0</b><small data-i18n="statReports">DIAGNOSTIC REPORTS</small></div>
+</section>
+<nav>
+ <button class="active" data-tab="dashboard" data-i18n="navDashboard" onclick="showTab('dashboard',this)">Dashboard</button>
+ <button data-tab="dtc" data-i18n="navDtc" onclick="showTab('dtc',this)">DTC Database</button>
+ <button data-tab="vehicles" data-i18n="navVehicles" onclick="showTab('vehicles',this)">Vehicles</button>
+ <button data-tab="customers" data-i18n="navCustomers" onclick="showTab('customers',this)">Customers</button>
+ <button data-tab="reports" data-i18n="navReports" onclick="showTab('reports',this)">Reports</button>
+ <button data-tab="ecu" data-i18n="navEcu" onclick="showTab('ecu',this)">ECU & Tuning</button>
+<a href="#eli-gallery">Galeria</a></nav>
+
+<section class="panel" id="dashboard">
+ <div class="panelhead"><div><h2 data-i18n="overview">Workshop overview</h2><p class="muted" data-i18n="overviewSub">Përmbledhje e punës së regjistruar në këtë pajisje.</p></div><span class="badge">ELI PERFORMANCE</span></div>
+ <div class="cards">
+  <div class="tile"><b data-i18n="quickDtc">DTC quick search</b><p data-i18n="quickDtcSub">Kërko kodet P, B, C dhe U me filtër sipas prodhuesit.</p><button class="btn primary" onclick="goTab('dtc')" data-i18n="openDtc">Open DTC</button></div>
+  <div class="tile"><b data-i18n="quickVehicle">Vehicle register</b><p data-i18n="quickVehicleSub">Ruaj markën, modelin, vitin, motorin dhe VIN-in.</p><button class="btn" onclick="goTab('vehicles')" data-i18n="openVehicles">Open vehicles</button></div>
+  <div class="tile"><b data-i18n="quickReport">Diagnostic reports</b><p data-i18n="quickReportSub">Krijo raporte dhe printoji ose ruaji si PDF.</p><button class="btn" onclick="goTab('reports')" data-i18n="openReports">Create report</button></div>
+ </div>
+ <div class="status" data-i18n="localNotice">Të dhënat e klientëve, automjeteve dhe raporteve ruhen lokalisht në këtë shfletues. Eksporto/ruaj kopje rezervë para ndërrimit të pajisjes.</div>
+</section>
+
+<section class="panel" id="dtc" hidden>
+ <h2 data-i18n="dtcTitle">DTC CODE DATABASE</h2><p class="muted" data-i18n="dtcSub">Kërko me kod, fjalë kyçe ose filtro sipas prodhuesit dhe kategorisë.</p>
+ <div class="searchgrid">
+  <input id="dtcQuery" type="search" placeholder="P.sh. P0401, turbo, fuel pressure…" onkeydown="if(event.key==='Enter')searchDtc(0)">
+  <select id="manufacturer"><option value="" data-i18n="allMfr">Të gjithë prodhuesit</option></select>
+  <select id="dtcType"><option value="" data-i18n="allTypes">Të gjitha P/B/C/U</option><option value="P">P · Powertrain</option><option value="B">B · Body</option><option value="C">C · Chassis</option><option value="U">U · Network</option></select>
+  <button class="btn primary" onclick="searchDtc(0)" data-i18n="search">KËRKO</button>
+ </div>
+ <div class="status" id="dbStatus">Duke u lidhur me databazën DTC…</div>
+ <div class="resulthead"><span id="dtcCount">Rezultatet</span><span id="dtcPage"></span></div>
+ <div id="dtcResults" class="results"></div>
+ <div class="pager"><button class="btn" onclick="searchDtc(Math.max(0,dtcPageNo-1))" data-i18n="previous">← Mbrapa</button><button class="btn" onclick="searchDtc(dtcPageNo+1)" data-i18n="next">Më shumë →</button></div>
+ <p class="muted" data-i18n="dtcDisclaimer">Përshkrimi i kodit nuk është diagnozë përfundimtare. Verifiko gjithmonë sipas automjetit, motorit, ECU-së dhe të dhënave live.</p>
+</section>
+
+<section class="panel" id="vehicles" hidden>
+ <h2 data-i18n="vehiclesTitle">VEHICLE REGISTER</h2><p class="muted" data-i18n="vehiclesSub">Regjistro automjetet e klientëve. Të dhënat ruhen në këtë pajisje.</p>
+ <div class="grid3">
+  <div class="field"><label data-i18n="make">Make</label><input id="vMake" placeholder="VW / BMW / Mercedes"></div>
+  <div class="field"><label data-i18n="model">Model</label><input id="vModel" placeholder="Golf 7 / 320d"></div>
+  <div class="field"><label data-i18n="year">Year</label><input id="vYear" placeholder="2018"></div>
+  <div class="field"><label data-i18n="engine">Engine code</label><input id="vEngine" placeholder="CFFB / N47"></div>
+  <div class="field"><label data-i18n="fuel">Fuel</label><select id="vFuel"><option>Diesel</option><option>Petrol</option><option>Hybrid</option><option>Electric</option><option>LPG</option></select></div>
+  <div class="field"><label>VIN</label><input id="vVin" placeholder="VIN (optional)"></div>
+  <div class="field"><label data-i18n="power">Power (hp)</label><input id="vPower" placeholder="150"></div>
+  <div class="field"><label data-i18n="customer">Customer</label><select id="vCustomer"><option value="">—</option></select></div>
+ </div>
+ <div class="actions"><button class="btn primary" onclick="saveVehicle()" data-i18n="saveVehicle">Save vehicle</button><button class="btn ghost" onclick="exportData()" data-i18n="backup">Export backup</button></div>
+ <div id="vehicleTable"></div>
+</section>
+
+<section class="panel" id="customers" hidden>
+ <h2 data-i18n="customersTitle">CUSTOMER DATABASE</h2><p class="muted" data-i18n="customersSub">Ruaj kontaktet bazë të klientëve për historikun e servisit.</p>
+ <div class="grid">
+  <div class="field"><label data-i18n="customerName">Customer name</label><input id="cName" placeholder="Name"></div>
+  <div class="field"><label data-i18n="phone">Phone</label><input id="cPhone" placeholder="+383…"></div>
+  <div class="field"><label data-i18n="email">Email</label><input id="cEmail" type="email" placeholder="name@email.com"></div>
+  <div class="field"><label data-i18n="customerNotes">Notes</label><input id="cNotes" placeholder="Optional"></div>
+ </div>
+ <div class="actions"><button class="btn primary" onclick="saveCustomer()" data-i18n="saveCustomer">Save customer</button></div>
+ <div id="customerTable"></div>
+</section>
+
+<section class="panel" id="reports" hidden>
+ <h2 data-i18n="reportsTitle">DIAGNOSTIC REPORTS</h2><p class="muted" data-i18n="reportsSub">Krijo raport për automjetin, kodet e gjetura dhe punën e rekomanduar. Përdor Print / Save as PDF.</p>
+ <div class="grid">
+  <div class="field"><label data-i18n="reportDate">Date</label><input id="rDate" type="date"></div>
+  <div class="field"><label data-i18n="customer">Customer</label><select id="rCustomer"><option value="">—</option></select></div>
+  <div class="field"><label data-i18n="vehicle">Vehicle</label><select id="rVehicle"><option value="">—</option></select></div>
+  <div class="field"><label data-i18n="faultCodes">Fault codes</label><input id="rCodes" placeholder="P0299, P0401"></div>
+  <div class="field full"><label data-i18n="findings">Diagnostic findings</label><textarea id="rFindings" placeholder="Symptoms, live data, tests performed…"></textarea></div>
+  <div class="field full"><label data-i18n="recommendations">Recommendations / work performed</label><textarea id="rActions" placeholder="Checks, repairs, next steps…"></textarea></div>
+ </div>
+ <div class="actions"><button class="btn primary" onclick="saveReport()" data-i18n="saveReport">Save report</button><button class="btn" onclick="printLatest()" data-i18n="printPdf">Print / Save PDF</button></div>
+ <div id="reportTable"></div>
+</section>
+
+<section class="panel" id="ecu" hidden>
+ <h2 data-i18n="ecuTitle">ECU & PERFORMANCE DATABASE</h2><p class="muted" data-i18n="ecuSub">Përmbledhje e familjeve ECU dhe shërbimeve diagnostikuese/performance.</p>
+ <div class="cards">
+  <div class="tile"><b>BOSCH</b><p>EDC15 · EDC16 · EDC17 · MD1 · MG1 · ME/MED</p></div>
+  <div class="tile"><b>CONTINENTAL / SIEMENS</b><p>SID · PCR · SIMOS</p></div>
+  <div class="tile"><b>DELPHI</b><p>DCM · CRD · MT series</p></div>
+  <div class="tile"><b>DENSO / MARELLI</b><p>Denso Diesel · IAW · MJD</p></div>
+ </div>
+ <div class="grid">
+  <div class="tile"><b data-i18n="diagServices">Diagnostics</b><p>Engine, transmission, ABS, airbag, body and network fault-finding.</p></div>
+  <div class="tile"><b>ECU REMAPPING</b><p>Stage 1 / Stage 2 planning, calibration checks, logging and dyno validation.</p></div>
+  <div class="tile"><b>AFTERTREATMENT</b><p>DPF, EGR, SCR / AdBlue diagnosis and repair-compliant service information.</p></div>
+  <div class="tile"><b data-i18n="electrical">Electrical diagnostics</b><p data-i18n="electricalSub">Wiring, sensors, actuators, power and ground checks. Verify pinouts using vehicle-specific documentation.</p></div>
+ </div>
+ <div class="status" data-i18n="ecuDisclaimer">Pinout-et, programimi dhe procedurat e riparimit duhen verifikuar për automjetin dhe ECU-në konkrete. Platforma nuk lidhet vetë me pajisjen diagnostikuese.</div>
+</section>
+</main>
+
+<section id="eli-gallery" class="eli-gallery-section">
+  <div class="eli-gallery-heading">
+    <div class="eyebrow">ELI PERFORMANCE · WORKSHOP & TUNING</div>
+    <h2>GALERIA <span>ELI PERFORMANCE</span></h2>
+    <p>Punët tona · Performanca · Diagnostikimi · Automjetet</p>
+  </div>
+  <div class="eli-gallery-filters" role="group" aria-label="Filtro galerinë">
+    <button class="eli-filter active" data-filter="all">Të gjitha</button>
+    <button class="eli-filter" data-filter="cars">Vetura</button>
+    <button class="eli-filter" data-filter="tuning">Tuning</button>
+    <button class="eli-filter" data-filter="workshop">Servisi</button>
+  </div>
+  <div class="eli-gallery-grid">
+    <figure class="eli-gallery-item" data-category="cars"><img src="assets/eli-amg-hero.png" alt="Mercedes AMG në garazh performance"><figcaption>Mercedes-AMG · Performance</figcaption></figure>
+    <figure class="eli-gallery-item" data-category="cars"><img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1000&q=85" alt="BMW performance"><figcaption>BMW · M Performance</figcaption></figure>
+    <figure class="eli-gallery-item" data-category="cars"><img src="https://images.unsplash.com/photo-1600705722906-bab4e6f3b8f5?auto=format&fit=crop&w=1000&q=85" alt="Audi sport"><figcaption>Audi · Sport</figcaption></figure>
+    <figure class="eli-gallery-item" data-category="cars"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1000&q=85" alt="Porsche sport"><figcaption>Porsche · Sport</figcaption></figure>
+    <figure class="eli-gallery-item" data-category="tuning"><img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1000&q=85" alt="Diagnostikim i automjetit"><figcaption>Diagnostikim & ECU</figcaption></figure>
+    <figure class="eli-gallery-item" data-category="tuning"><img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1000&q=85" alt="Vetura e modifikuar"><figcaption>ECU Tuning · Remapping</figcaption></figure>
+    <figure class="eli-gallery-item" data-category="workshop"><img src="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1000&q=85" alt="Punëtori automobilistike"><figcaption>Workshop · Servis profesional</figcaption></figure>
+    <figure class="eli-gallery-item" data-category="workshop"><img src="https://images.unsplash.com/photo-1632823471565-1ecdf5c8f4c5?auto=format&fit=crop&w=1000&q=85" alt="Motori i automjetit"><figcaption>Kontroll i motorit</figcaption></figure>
+  </div>
+</section>
+<style>
+.eli-gallery-section{margin:28px 0;padding:26px 18px;background:linear-gradient(145deg,#10090b,#080809);border:1px solid #55232c;border-radius:16px}
+.eli-gallery-heading{text-align:center;margin-bottom:18px}.eli-gallery-heading h2{font-size:clamp(27px,4vw,44px);margin:8px 0;color:#f4eeee;font-weight:950;letter-spacing:1px}.eli-gallery-heading h2 span{color:#ed2638}.eli-gallery-heading p{color:#c9b9bc;font-size:13px}
+.eli-gallery-filters{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:18px 0 20px}.eli-filter{border:1px solid #73303a;background:#160e10;color:#eee;padding:9px 17px;border-radius:7px;font-weight:800;cursor:pointer}.eli-filter.active,.eli-filter:hover{background:#d7192d;border-color:#ff5362}
+.eli-gallery-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.eli-gallery-item{margin:0;position:relative;overflow:hidden;border:1px solid #742d38;border-radius:10px;background:#09090a;aspect-ratio:16/10}.eli-gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}.eli-gallery-item:hover img{transform:scale(1.06)}.eli-gallery-item figcaption{position:absolute;bottom:0;left:0;right:0;padding:24px 11px 10px;background:linear-gradient(transparent,#000e);color:#fff;font-size:12px;font-weight:800}
+@media(max-width:850px){.eli-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:420px){.eli-gallery-grid{gap:7px}.eli-gallery-item figcaption{font-size:10px;padding:18px 7px 7px}.eli-gallery-section{padding:18px 10px}}
+</style>
+<script>
+document.querySelectorAll('.eli-filter').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.eli-filter').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active');
+ const f=btn.dataset.filter;
+ document.querySelectorAll('.eli-gallery-item').forEach(item=>item.hidden=!(f==='all'||item.dataset.category===f));
+}));
+</script>
+
+<footer><b>ELI PERFORMANCE</b> · MORE POWER. MORE PERFORMANCE.<br>Owner by Elion Musliu · <a href="tel:+38344400761">044 400 761</a><br><span data-i18n="footerNote">Workshop data is stored locally on this device.</span></footer>
+
+<div id="diagnosticModal" class="diag-overlay" hidden>
+ <div class="diag-modal" role="dialog" aria-modal="true" aria-labelledby="diagTitle">
+  <div class="panelhead"><div><div class="eyebrow">ELI PERFORMANCE · WORKSHOP PROCEDURE</div><h2 id="diagTitle">DIAGNOSTIC WORKFLOW</h2><p id="diagSubtitle" class="muted"></p></div><button class="btn ghost" onclick="closeDiagnostic()" aria-label="Close">✕</button></div>
+  <div class="grid">
+   <div class="field"><label id="diagMakeLabel">Marka / modeli</label><input id="diagVehicle" placeholder="VW Golf 7 2.0 TDI"></div>
+   <div class="field"><label id="diagEngineLabel">Kodi i motorit / ECU</label><input id="diagEngine" placeholder="CFFB / EDC17"></div>
+  </div>
+  <div id="diagIntro" class="status"></div>
+  <div id="diagSteps" class="diag-steps"></div>
+  <div class="status" id="diagDecision"></div>
+  <div class="actions"><button class="btn" onclick="resetDiagnostic()" id="diagReset">Rivendos hapat</button><button class="btn primary" onclick="copyDiagnosticSummary()" id="diagCopy">Kopjo përmbledhjen</button></div>
+  <p class="muted" id="diagSafety"></p>
+ </div>
+</div>
+
+<div id="reportPrint"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+<script>
+const DB_URL='https://raw.githubusercontent.com/Wal33D/dtc-database/main/data/dtc_codes.db';
+const T={
+sq:{eyebrow:'AUTOMOTIVE DIAGNOSTICS & PERFORMANCE',intro:'Platformë për diagnostikim, menaxhim automjetesh, klientë dhe raporte servisi.',statDtc:'KODE UNIKE DTC (BURIMI)',statVehicles:'AUTOMJETE TË RUAJTURA',statCustomers:'KLIENTË',statReports:'RAPORTE DIAGNOSTIKIMI',navDashboard:'Paneli',navDtc:'Databaza DTC',navVehicles:'Automjetet',navCustomers:'Klientët',navReports:'Raportet',navEcu:'ECU & Tuning',overview:'Përmbledhje e servisit',overviewSub:'Përmbledhje e punës së regjistruar në këtë pajisje.',quickDtc:'Kërkim i shpejtë DTC',quickDtcSub:'Kërko kodet P, B, C dhe U me filtër sipas prodhuesit.',openDtc:'Hap DTC',quickVehicle:'Regjistri i automjeteve',quickVehicleSub:'Ruaj markën, modelin, vitin, motorin dhe VIN-in.',openVehicles:'Hap automjetet',quickReport:'Raportet diagnostikuese',quickReportSub:'Krijo raporte dhe ruaji si PDF.',openReports:'Krijo raport',localNotice:'Të dhënat ruhen lokalisht në këtë shfletues. Eksporto kopje rezervë para ndërrimit të pajisjes.',dtcTitle:'DATABAZA E KODEVE DTC',dtcSub:'Kërko me kod, fjalë kyçe ose filtro sipas prodhuesit dhe kategorisë.',allMfr:'Të gjithë prodhuesit',allTypes:'Të gjitha P/B/C/U',search:'KËRKO',previous:'← Mbrapa',next:'Më shumë →',dtcDisclaimer:'Përshkrimi i kodit nuk është diagnozë përfundimtare. Verifiko sipas automjetit, motorit, ECU-së dhe të dhënave live.',vehiclesTitle:'REGJISTRI I AUTOMJETEVE',vehiclesSub:'Regjistro automjetet e klientëve. Të dhënat ruhen në këtë pajisje.',make:'Marka',model:'Modeli',year:'Viti',engine:'Kodi i motorit',fuel:'Karburanti',power:'Fuqia (hp)',customer:'Klienti',saveVehicle:'Ruaj automjetin',backup:'Eksporto kopje',customersTitle:'BAZA E KLIENTËVE',customersSub:'Ruaj kontaktet bazë të klientëve për historikun e servisit.',customerName:'Emri i klientit',phone:'Telefoni',email:'Email',customerNotes:'Shënime',saveCustomer:'Ruaj klientin',reportsTitle:'RAPORTET DIAGNOSTIKUESE',reportsSub:'Krijo raport për automjetin, kodet dhe punën e rekomanduar. Përdor Print / Save as PDF.',reportDate:'Data',vehicle:'Automjeti',faultCodes:'Kodet e gabimeve',findings:'Gjetjet diagnostikuese',recommendations:'Rekomandimet / puna e kryer',saveReport:'Ruaj raportin',printPdf:'Printo / Ruaj PDF',ecuTitle:'BAZA ECU & PERFORMANCE',ecuSub:'Përmbledhje e familjeve ECU dhe shërbimeve diagnostikuese/performance.',diagServices:'Diagnostikimi',electrical:'Diagnostikimi elektrik',electricalSub:'Kontrollo instalimet, sensorët, aktuatorët, furnizimin dhe masën. Verifiko pinout-et me dokumentacionin specifik të automjetit.',ecuDisclaimer:'Pinout-et, programimi dhe riparimi duhen verifikuar për automjetin dhe ECU-në konkrete. Platforma nuk lidhet vetë me pajisjen diagnostikuese.',footerNote:'Të dhënat e servisit ruhen lokalisht në këtë pajisje.',saved:'U ruajt me sukses.',needFields:'Plotëso fushat e kërkuara.',delete:'Fshije',noData:'Ende nuk ka të dhëna.',generic:'GENERIC',mfrSpecific:'Përkufizim specifik për prodhuesin',genericDef:'Përkufizim i përgjithshëm'},
+en:{eyebrow:'AUTOMOTIVE DIAGNOSTICS & PERFORMANCE',intro:'A workshop platform for diagnostics, vehicle management, customers and service reports.',statDtc:'UNIQUE DTC CODES (SOURCE)',statVehicles:'SAVED VEHICLES',statCustomers:'CUSTOMERS',statReports:'DIAGNOSTIC REPORTS',navDashboard:'Dashboard',navDtc:'DTC Database',navVehicles:'Vehicles',navCustomers:'Customers',navReports:'Reports',navEcu:'ECU & Tuning',overview:'Workshop overview',overviewSub:'Summary of records stored on this device.',quickDtc:'DTC quick search',quickDtcSub:'Search P, B, C and U codes with manufacturer filtering.',openDtc:'Open DTC',quickVehicle:'Vehicle register',quickVehicleSub:'Save make, model, year, engine and VIN.',openVehicles:'Open vehicles',quickReport:'Diagnostic reports',quickReportSub:'Create reports and print or save them as PDF.',openReports:'Create report',localNotice:'Customer, vehicle and report data is stored locally in this browser. Export a backup before changing devices.',dtcTitle:'DTC CODE DATABASE',dtcSub:'Search by code, keyword, manufacturer or category.',allMfr:'All manufacturers',allTypes:'All P/B/C/U types',search:'SEARCH',previous:'← Previous',next:'More →',dtcDisclaimer:'A code description is not a final diagnosis. Verify using the exact vehicle, engine, ECU and live data.',vehiclesTitle:'VEHICLE REGISTER',vehiclesSub:'Register customer vehicles. Data is stored on this device.',make:'Make',model:'Model',year:'Year',engine:'Engine code',fuel:'Fuel',power:'Power (hp)',customer:'Customer',saveVehicle:'Save vehicle',backup:'Export backup',customersTitle:'CUSTOMER DATABASE',customersSub:'Store basic customer contacts for workshop history.',customerName:'Customer name',phone:'Phone',email:'Email',customerNotes:'Notes',saveCustomer:'Save customer',reportsTitle:'DIAGNOSTIC REPORTS',reportsSub:'Create a report with vehicle, fault codes and recommended work. Use Print / Save as PDF.',reportDate:'Date',vehicle:'Vehicle',faultCodes:'Fault codes',findings:'Diagnostic findings',recommendations:'Recommendations / work performed',saveReport:'Save report',printPdf:'Print / Save PDF',ecuTitle:'ECU & PERFORMANCE DATABASE',ecuSub:'Overview of ECU families and diagnostic/performance services.',diagServices:'Diagnostics',electrical:'Electrical diagnostics',electricalSub:'Check wiring, sensors, actuators, power and ground. Verify pinouts with vehicle-specific documentation.',ecuDisclaimer:'Pinouts, programming and repair procedures must be verified for the exact vehicle and ECU. This platform does not directly connect to diagnostic hardware.',footerNote:'Workshop data is stored locally on this device.',saved:'Saved successfully.',needFields:'Complete the required fields.',delete:'Delete',noData:'No records yet.',generic:'GENERIC',mfrSpecific:'Manufacturer-specific definition',genericDef:'Generic definition'},
+de:{eyebrow:'FAHRZEUGDIAGNOSE & PERFORMANCE',intro:'Werkstattplattform für Diagnose, Fahrzeugverwaltung, Kunden und Serviceberichte.',statDtc:'EINDEUTIGE DTC-CODES (QUELLE)',statVehicles:'GESPEICHERTE FAHRZEUGE',statCustomers:'KUNDEN',statReports:'DIAGNOSEBERICHTE',navDashboard:'Übersicht',navDtc:'DTC-Datenbank',navVehicles:'Fahrzeuge',navCustomers:'Kunden',navReports:'Berichte',navEcu:'ECU & Tuning',overview:'Werkstattübersicht',overviewSub:'Zusammenfassung der auf diesem Gerät gespeicherten Einträge.',quickDtc:'DTC-Schnellsuche',quickDtcSub:'P-, B-, C- und U-Codes mit Herstellerfilter suchen.',openDtc:'DTC öffnen',quickVehicle:'Fahrzeugregister',quickVehicleSub:'Marke, Modell, Baujahr, Motor und VIN speichern.',openVehicles:'Fahrzeuge öffnen',quickReport:'Diagnoseberichte',quickReportSub:'Berichte erstellen und als PDF drucken oder speichern.',openReports:'Bericht erstellen',localNotice:'Kunden-, Fahrzeug- und Berichtsdaten werden lokal im Browser gespeichert. Vor einem Gerätewechsel ein Backup exportieren.',dtcTitle:'DTC-CODE-DATENBANK',dtcSub:'Suche nach Code, Stichwort, Hersteller oder Kategorie.',allMfr:'Alle Hersteller',allTypes:'Alle P/B/C/U-Typen',search:'SUCHEN',previous:'← Zurück',next:'Mehr →',dtcDisclaimer:'Eine Codebeschreibung ist keine endgültige Diagnose. Fahrzeug, Motor, ECU und Live-Daten prüfen.',vehiclesTitle:'FAHRZEUGREGISTER',vehiclesSub:'Kundenfahrzeuge erfassen. Daten werden auf diesem Gerät gespeichert.',make:'Marke',model:'Modell',year:'Baujahr',engine:'Motorkennbuchstabe',fuel:'Kraftstoff',power:'Leistung (PS)',customer:'Kunde',saveVehicle:'Fahrzeug speichern',backup:'Backup exportieren',customersTitle:'KUNDENDATENBANK',customersSub:'Kontaktdaten für die Werkstatthistorie speichern.',customerName:'Kundenname',phone:'Telefon',email:'E-Mail',customerNotes:'Notizen',saveCustomer:'Kunden speichern',reportsTitle:'DIAGNOSEBERICHTE',reportsSub:'Bericht mit Fahrzeug, Fehlercodes und empfohlenen Arbeiten erstellen. Drucken / als PDF speichern.',reportDate:'Datum',vehicle:'Fahrzeug',faultCodes:'Fehlercodes',findings:'Diagnosebefunde',recommendations:'Empfehlungen / ausgeführte Arbeiten',saveReport:'Bericht speichern',printPdf:'Drucken / PDF speichern',ecuTitle:'ECU- & PERFORMANCE-DATENBANK',ecuSub:'Übersicht der ECU-Familien und Diagnose-/Performance-Dienste.',diagServices:'Diagnose',electrical:'Elektrische Diagnose',electricalSub:'Leitungen, Sensoren, Aktoren, Versorgung und Masse prüfen. Pinbelegung anhand fahrzeugspezifischer Unterlagen verifizieren.',ecuDisclaimer:'Pinbelegung, Programmierung und Reparaturverfahren müssen für Fahrzeug und ECU geprüft werden. Keine direkte Verbindung zu Diagnosegeräten.',footerNote:'Werkstattdaten werden lokal auf diesem Gerät gespeichert.',saved:'Erfolgreich gespeichert.',needFields:'Bitte Pflichtfelder ausfüllen.',delete:'Löschen',noData:'Noch keine Einträge.',generic:'GENERIC',mfrSpecific:'Herstellerspezifische Definition',genericDef:'Allgemeine Definition'},
+fr:{eyebrow:'DIAGNOSTIC AUTOMOBILE & PERFORMANCE',intro:'Plateforme atelier pour le diagnostic, la gestion des véhicules, des clients et les rapports.',statDtc:'CODES DTC UNIQUES (SOURCE)',statVehicles:'VÉHICULES ENREGISTRÉS',statCustomers:'CLIENTS',statReports:'RAPPORTS DE DIAGNOSTIC',navDashboard:'Tableau de bord',navDtc:'Base DTC',navVehicles:'Véhicules',navCustomers:'Clients',navReports:'Rapports',navEcu:'ECU & Tuning',overview:'Vue d’ensemble de l’atelier',overviewSub:'Résumé des données enregistrées sur cet appareil.',quickDtc:'Recherche DTC rapide',quickDtcSub:'Rechercher les codes P, B, C et U avec filtre constructeur.',openDtc:'Ouvrir DTC',quickVehicle:'Registre véhicules',quickVehicleSub:'Enregistrer marque, modèle, année, moteur et VIN.',openVehicles:'Ouvrir véhicules',quickReport:'Rapports de diagnostic',quickReportSub:'Créer des rapports et les imprimer ou enregistrer en PDF.',openReports:'Créer un rapport',localNotice:'Les données clients, véhicules et rapports sont stockées localement dans ce navigateur. Exportez une sauvegarde avant de changer d’appareil.',dtcTitle:'BASE DE CODES DTC',dtcSub:'Rechercher par code, mot-clé, constructeur ou catégorie.',allMfr:'Tous les constructeurs',allTypes:'Tous les types P/B/C/U',search:'RECHERCHER',previous:'← Précédent',next:'Plus →',dtcDisclaimer:'La description d’un code ne constitue pas un diagnostic final. Vérifiez le véhicule, le moteur, le calculateur et les données en direct.',vehiclesTitle:'REGISTRE DES VÉHICULES',vehiclesSub:'Enregistrer les véhicules des clients. Les données restent sur cet appareil.',make:'Marque',model:'Modèle',year:'Année',engine:'Code moteur',fuel:'Carburant',power:'Puissance (ch)',customer:'Client',saveVehicle:'Enregistrer véhicule',backup:'Exporter sauvegarde',customersTitle:'BASE CLIENTS',customersSub:'Enregistrer les coordonnées utiles à l’historique atelier.',customerName:'Nom du client',phone:'Téléphone',email:'E-mail',customerNotes:'Notes',saveCustomer:'Enregistrer client',reportsTitle:'RAPPORTS DE DIAGNOSTIC',reportsSub:'Créer un rapport avec véhicule, codes défauts et travaux recommandés. Imprimer / enregistrer en PDF.',reportDate:'Date',vehicle:'Véhicule',faultCodes:'Codes défauts',findings:'Constats de diagnostic',recommendations:'Recommandations / travaux effectués',saveReport:'Enregistrer rapport',printPdf:'Imprimer / Enregistrer PDF',ecuTitle:'BASE ECU & PERFORMANCE',ecuSub:'Aperçu des familles ECU et des services de diagnostic/performance.',diagServices:'Diagnostic',electrical:'Diagnostic électrique',electricalSub:'Contrôler faisceaux, capteurs, actionneurs, alimentation et masse. Vérifier les brochages avec la documentation du véhicule.',ecuDisclaimer:'Les brochages, la programmation et les procédures doivent être vérifiés pour le véhicule et le calculateur exacts. Pas de connexion directe à un outil de diagnostic.',footerNote:'Les données atelier sont stockées localement sur cet appareil.',saved:'Enregistré avec succès.',needFields:'Veuillez remplir les champs obligatoires.',delete:'Supprimer',noData:'Aucun enregistrement pour le moment.',generic:'GENERIC',mfrSpecific:'Définition spécifique constructeur',genericDef:'Définition générique'}
+};
+let lang='sq',db=null,dtcPageNo=0,pageSize=40;
+const $=id=>document.getElementById(id),tr=k=>T[lang][k]||T.en[k]||k;
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function applyLanguage(){document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(n=>{const k=n.dataset.i18n;if(T[lang][k])n.textContent=T[lang][k]});$('language').value=lang;renderAll()}
+$('language').addEventListener('change',e=>{lang=e.target.value;applyLanguage()});
+function showTab(id,btn){['dashboard','dtc','vehicles','customers','reports','ecu'].forEach(x=>$(x).hidden=x!==id);document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderAll()}
+function goTab(id){const b=document.querySelector('nav button[data-tab="'+id+'"]');showTab(id,b)}
+function status(t,kind=''){ $('dbStatus').textContent=t;$('dbStatus').className='status '+kind}
+async function loadDatabase(){try{if(typeof initSqlJs!=='function')throw Error('SQL.js could not load');const SQL=await initSqlJs({locateFile:f=>'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/'+f});const res=await fetch(DB_URL);if(!res.ok)throw Error('Database download failed: '+res.status);db=new SQL.Database(new Uint8Array(await res.arrayBuffer()));const stat=db.exec("SELECT COUNT(DISTINCT code) FROM dtc_definitions WHERE locale='en'");if(stat[0])$('statDtc').textContent=Number(stat[0].values[0][0]).toLocaleString('en-US');const makers=db.exec("SELECT DISTINCT manufacturer FROM dtc_definitions WHERE manufacturer <> 'GENERIC' ORDER BY manufacturer");if(makers[0])makers[0].values.forEach(row=>{const o=document.createElement('option');o.value=row[0];o.textContent=row[0];$('manufacturer').appendChild(o)});status(lang==='sq'?'Databaza DTC u ngarkua me sukses.': 'DTC database loaded successfully.','good');searchDtc(0)}catch(e){status('DTC database: '+e.message,'bad')}}
+function searchDtc(page){if(!db){status('Databaza po ngarkohet. Provo përsëri pas pak.');return}dtcPageNo=page;const q=$('dtcQuery').value.trim().toUpperCase(),m=$('manufacturer').value,t=$('dtcType').value,w=["locale='en'"],args=[];if(m){w.push("(manufacturer=? OR is_generic=1)");args.push(m)}if(t){w.push("type=?");args.push(t)}if(q){if(/^[PBCU][0-9A-F]{4}$/.test(q)){w.push('code=?');args.push(q)}else{w.push('(code LIKE ? OR description LIKE ?)');args.push('%'+q+'%','%'+q+'%')}}const where=w.join(' AND ');try{const total=db.exec('SELECT COUNT(*) FROM dtc_definitions WHERE '+where,args)[0].values[0][0];const rows=db.exec('SELECT code,manufacturer,description,type,is_generic FROM dtc_definitions WHERE '+where+' ORDER BY CASE WHEN is_generic=1 THEN 0 ELSE 1 END,code,manufacturer LIMIT '+pageSize+' OFFSET '+(page*pageSize),args)[0]?.values||[];$('dtcCount').textContent=Number(total).toLocaleString()+' '+(lang==='sq'?'përkufizime':'definitions');$('dtcPage').textContent=total?'Page '+(page+1)+' / '+Math.ceil(total/pageSize):'';$('dtcResults').innerHTML=rows.length?rows.map(r=>'<article class="result"><div class="rhead"><span class="code">'+esc(r[0])+'</span><span class="pill">'+esc(r[3])+' · '+esc(r[1])+'</span></div><p>'+esc(r[2])+'</p><div class="note">'+(r[4]?tr('genericDef'):tr('mfrSpecific'))+'</div><div class="actions"><button class="btn primary" onclick="openDiagnostic(\''+esc(r[0])+'\',\''+esc(r[2]).replace(/\\\\/g,'\\\\\\\\').replace(/'/g,'\\\\\'')+'\',\''+esc(r[1])+'\')">'+(lang==='sq'?'Hap hapat e diagnostikimit':lang==='de'?'Diagnoseschritte öffnen':lang==='fr'?'Ouvrir les étapes de diagnostic':'Open diagnostic steps')+'</button></div></article>').join(''):'<div class="empty">'+(lang==='sq'?'Nuk u gjet asnjë rezultat.':'No matching definitions found.')+'</div>'}catch(e){$('dtcResults').textContent=e.message}}
+
+const DIAG_TEXT={
+ sq:{intro:'Këta janë hapa orientues. Zgjidh markën, modelin dhe motorin përpara testimit. Shëno çdo kontroll vetëm pasi ta kesh kryer.',safety:'Mos ndërro pjesë vetëm nga kodi DTC. Konfirmo defektin me matje, skemë elektrike dhe të dhëna sipas VIN/ECU. Vlerat elektrike dhe presionet varen nga motori.',vehicle:'Marka / modeli',engine:'Kodi i motorit / ECU',reset:'Rivendos hapat',copy:'Kopjo përmbledhjen',done:'kontrolle të përfunduara',decision:'Vendimi: nëse një test dështon, izolo shkakun dhe riparo instalimin/lidhjen ose komponentin e konfirmuar. Pas riparimit fshi kodin dhe kryej testin e përsëritur.'},
+ en:{intro:'These are guided checks, not a guaranteed repair diagnosis. Enter the exact vehicle and engine before testing. Tick each item only after completing it.',safety:'Never replace a part based on the DTC alone. Confirm the fault with measurements, wiring diagrams and VIN/ECU-specific specifications. Electrical values and pressures vary by engine.',vehicle:'Make / model',engine:'Engine code / ECU',reset:'Reset steps',copy:'Copy summary',done:'checks completed',decision:'Decision: if a test fails, isolate the cause and repair the confirmed wiring, connection or component. After repair, clear the code and repeat the test.'},
+ de:{intro:'Dies sind Prüfschritte, keine garantierte Reparaturdiagnose. Exaktes Fahrzeug und Motor vor der Prüfung eintragen.',safety:'Teile niemals nur aufgrund eines DTC ersetzen. Fehler mit Messungen, Schaltplan und VIN-/ECU-spezifischen Sollwerten bestätigen.',vehicle:'Marke / Modell',engine:'Motorkennbuchstabe / ECU',reset:'Schritte zurücksetzen',copy:'Zusammenfassung kopieren',done:'Prüfungen abgeschlossen',decision:'Entscheidung: Bei fehlgeschlagenem Test Ursache eingrenzen und bestätigte Leitung, Verbindung oder Komponente reparieren. Danach Fehler löschen und erneut prüfen.'},
+ fr:{intro:'Ces contrôles sont indicatifs et ne constituent pas un diagnostic de réparation garanti. Saisissez le véhicule et le moteur exacts.',safety:'Ne remplacez jamais une pièce sur le seul code DTC. Confirmez avec des mesures, le schéma électrique et les valeurs propres au VIN/ECU.',vehicle:'Marque / modèle',engine:'Code moteur / ECU',reset:'Réinitialiser',copy:'Copier le résumé',done:'contrôles terminés',decision:'Décision : si un test échoue, isolez la cause et réparez le câblage, la connexion ou le composant confirmé. Effacez ensuite le code et refaites le test.'}
+};
+let activeDiag={code:'',description:'',manufacturer:'',steps:[]};
+function workflowFor(code,description){
+ const p=code[0],base=[
+ ['Konfirmo simptomën dhe kushtet kur shfaqet kodi.','Shëno simptomat, temperaturën, ngarkesën dhe freeze-frame. Mos e fshi kodin para se t’i ruash të dhënat.'],
+ ['Lexo të gjitha kodet dhe freeze-frame.','Kontrollo kodet shoqëruese në modulet relevante dhe ruaj raportin para fshirjes.'],
+ ['Bëj kontroll vizual.','Kontrollo konektorët, oksidimin, kabllot, siguresat, masën, rrjedhjet dhe dëmtimet mekanike sipas sistemit.'],
+ ['Kontrollo furnizimin dhe instalimin elektrik.','Mat furnizimin, masën dhe vazhdimësinë sipas skemës së saktë të automjetit. Mos përdor pinout universal.'],
+ ['Krahaso të dhënat Live me specifikimin e prodhuesit.','Kontrollo vlerat e kërkuara kundrejt atyre reale dhe përdor testet aktive kur mbështeten nga pajisja.'],
+ ['Izolo komponentin ose qarkun që dështon.','Përdor matje të dyta ose test krahasues për të dalluar sensorin, instalimin, furnizimin dhe defektin mekanik.'],
+ ['Riparo shkakun e konfirmuar dhe verifiko.','Ndërro pjesë vetëm kur testi e konfirmon. Pas riparimit fshi kodin, kryej provë dhe skano përsëri.']
+ ];
+ if(code==='P0299') return [
+ ['Konfirmo P0299 dhe ruaj freeze-frame.','Shëno RPM, ngarkesën, presionin e kërkuar/real të boost dhe kushtet e shfaqjes.'],
+ ['Kontrollo tubat e presionit dhe intercooler-in.','Inspekto çarje, kapëse të lira, vajosje të pazakontë dhe rrjedhje; bëj smoke/pressure test me presion të sigurt sipas specifikimit.'],
+ ['Kontrollo filtrin e ajrit dhe rrugën e thithjes.','Sigurohu që nuk ka bllokim, tub të shtypur ose rrjedhje para turbos.'],
+ ['Kontrollo vakumin ose komandimin elektronik të turbos.','Sipas sistemit: mat vakumin, kontrollo valvulën N75/solenoidin, kabllazhin dhe furnizimin.'],
+ ['Testo aktuatorin dhe lëvizjen e mekanizmit VNT/wastegate.','Përdor testin aktiv dhe specifikimin e prodhuesit. Mos e detyro mekanizmin dhe mos rregullo shufrën pa procedurë.'],
+ ['Krahaso MAP/boost dhe MAF në Live Data.','Kontrollo plausibilitetin, furnizimin, masën dhe sinjalin; krahaso me vlerat OEM për motorin konkret.'],
+ ['Vlerëso turbon vetëm pasi të përjashtohen shkaqet e tjera.','Kontrollo boshtin, dëmtimet dhe furnizimin/kthimin e vajit sipas procedurës së prodhuesit.'],
+ ['Riparo shkakun e konfirmuar dhe bëj provë nën ngarkesë.','Ndërrimi i turbos nuk rekomandohet pa prova që vetë turbo është defektoze. Fshi kodin dhe kontrollo përsëri boost requested/actual.']
+ ];
+ if(p==='P') return base;
+ if(p==='B') return [
+ ['Konfirmo funksionin e trupit që raporton defektin.','Kontrollo simptomën: dritare, kyçje, ndriçim, airbag ose modul karrocerie.'],
+ ['Lexo kodet në modulin përkatës dhe kontrollo baterinë.','Ruaj freeze-frame dhe kontrollo tensionin e baterisë/karikimit sipas specifikimit.'],
+ ['Kontrollo siguresat, masën dhe konektorët.','Përdor skemën specifike të automjetit; kontrollo lagështinë, oksidimin dhe dëmtimin e kabllove.'],
+ ['Kryej testin aktiv ose matjen e sinjalit.','Krahaso komandën e modulit me reagimin real të aktuatorit/sensorit.'],
+ ['Izolo modulin, instalimin ose komponentin.','Konfirmo me matje dhe test krahasues përpara zëvendësimit.'],
+ ['Riparo dhe kryej kalibrim/adaptim nëse kërkohet.','Përdor procedurën OEM; fshi kodin dhe verifiko funksionin.']
+ ];
+ if(p==='C') return [
+ ['Konfirmo sistemin e shasisë që raporton defektin.','Identifiko nëse lidhet me ABS, ESP, drejtimin, frenat ose pezullimin.'],
+ ['Kontrollo sigurinë mekanike përpara provës në rrugë.','Inspekto frenat, gomat, kushinetat, lidhjet dhe dëmtimet e dukshme. Mos bëj provë në rrugë nëse siguria është e dyshimtë.'],
+ ['Kontrollo sensorët, unazat encoder dhe kabllazhin.','Inspekto distancën, ndotjen, dëmtimet dhe sinjalin sipas specifikimit OEM.'],
+ ['Kontrollo furnizimin, masën dhe komunikimin e modulit.','Përdor skemën dhe matjet e sakta për automjetin.'],
+ ['Krahaso Live Data dhe kryej kalibrim vetëm sipas procedurës.','Kontrollo shpejtësitë e rrotave/sinjalet dhe kushtet e aktivizimit.'],
+ ['Riparo shkakun e provuar dhe verifiko sistemin.','Zëvendëso sensor/modul vetëm pasi testet ta konfirmojnë; kryej kalibrimin dhe kontrollin final.']
+ ];
+ if(p==='U') return [
+ ['Konfirmo modulet që humbin komunikimin.','Bëj skanim të plotë dhe shëno cilat module përgjigjen dhe cilat jo.'],
+ ['Kontrollo baterinë dhe furnizimet e moduleve.','Tensioni i ulët mund të shkaktojë kode komunikimi; kontrollo siguresat, masat dhe furnizimet sipas skemës.'],
+ ['Inspekto rrjetin CAN/LIN dhe konektorët.','Kontrollo dëmtime, ujë, oksidim, shkurtim ose qark të hapur.'],
+ ['Mat rrjetin vetëm sipas topologjisë OEM.','Përdor pikat e testimit dhe rezistencat/tensionet e specifikuara për atë automjet; mos supozo vlera universale.'],
+ ['Izolo degën ose modulin problematik.','Shkëputja e moduleve bëhet vetëm sipas procedurës së sigurt dhe me ndezjen të fikur kur kërkohet.'],
+ ['Riparo instalimin ose modulin e konfirmuar.','Pas riparimit bëj skanim të plotë, kontrollo komunikimin dhe fshi kodet e rikthyera.']
+ ];
+ return base;
+}
+function openDiagnostic(code,description,manufacturer){
+ activeDiag={code,description,manufacturer,steps:workflowFor(code,description)};
+ const t=DIAG_TEXT[lang]||DIAG_TEXT.sq;
+ $('diagTitle').textContent=code+' · '+manufacturer;
+ $('diagSubtitle').textContent=description;
+ $('diagIntro').textContent=t.intro;
+ $('diagMakeLabel').textContent=t.vehicle;
+ $('diagEngineLabel').textContent=t.engine;
+ $('diagReset').textContent=t.reset;
+ $('diagCopy').textContent=t.copy;
+ $('diagSafety').textContent=t.safety;
+ $('diagDecision').textContent=t.decision;
+ $('diagSteps').innerHTML=activeDiag.steps.map((s,i)=>'<label class="diag-step"><input type="checkbox" onchange="updateDiagProgress()"><span><b>'+(i+1)+'. '+esc(s[0])+'</b><p>'+esc(s[1])+'</p></span></label>').join('');
+ updateDiagProgress();
+ $('diagnosticModal').hidden=false;
+ document.body.style.overflow='hidden';
+}
+function updateDiagProgress(){
+ const items=[...$('diagSteps').querySelectorAll('.diag-step')];
+ const n=items.filter(el=>el.querySelector('input').checked).length,t=DIAG_TEXT[lang]||DIAG_TEXT.sq;
+ items.forEach(el=>el.classList.toggle('done',el.querySelector('input').checked));
+ $('diagDecision').textContent=n+' / '+activeDiag.steps.length+' '+t.done+'. '+t.decision;
+}
+function resetDiagnostic(){
+ $('diagSteps').querySelectorAll('input').forEach(x=>{x.checked=false;x.closest('.diag-step').classList.remove('done')});
+ updateDiagProgress();
+}
+function closeDiagnostic(){$('diagnosticModal').hidden=true;document.body.style.overflow=''}
+function copyDiagnosticSummary(){
+ const t=DIAG_TEXT[lang]||DIAG_TEXT.sq,vehicle=$('diagVehicle').value||'—',engine=$('diagEngine').value||'—';
+ const checks=[...$('diagSteps').querySelectorAll('.diag-step')].map((el,i)=>(el.querySelector('input').checked?'[x] ':'[ ] ')+(i+1)+'. '+activeDiag.steps[i][0]+' — '+activeDiag.steps[i][1]).join('\\n');
+ const summary='ELI PERFORMANCE · '+activeDiag.code+'\\n'+activeDiag.description+'\\nVehicle: '+vehicle+'\\nEngine/ECU: '+engine+'\\n\\n'+checks+'\\n\\n'+t.safety;
+ if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(summary).then(()=>alert(lang==='sq'?'U kopjua përmbledhja.':'Summary copied.')).catch(()=>prompt('Copy diagnostic summary:',summary));
+ else prompt('Copy diagnostic summary:',summary);
+}
+
+function read(key){try{return JSON.parse(localStorage.getItem('eli_'+key)||'[]')}catch(e){return[]}}
+function write(key,val){localStorage.setItem('eli_'+key,JSON.stringify(val))}
+function saveCustomer(){const name=$('cName').value.trim();if(!name){alert(tr('needFields'));return}const a=read('customers');a.push({id:Date.now(),name,phone:$('cPhone').value.trim(),email:$('cEmail').value.trim(),notes:$('cNotes').value.trim()});write('customers',a);['cName','cPhone','cEmail','cNotes'].forEach(x=>$(x).value='');renderAll();alert(tr('saved'))}
+function saveVehicle(){const v={id:Date.now(),make:$('vMake').value.trim(),model:$('vModel').value.trim(),year:$('vYear').value.trim(),engine:$('vEngine').value.trim(),fuel:$('vFuel').value,power:$('vPower').value.trim(),vin:$('vVin').value.trim(),customerId:$('vCustomer').value};if(!v.make||!v.model){alert(tr('needFields'));return}const a=read('vehicles');a.push(v);write('vehicles',a);['vMake','vModel','vYear','vEngine','vPower','vVin'].forEach(x=>$(x).value='');renderAll();alert(tr('saved'))}
+function delItem(key,id){if(!confirm(tr('delete')+'?'))return;write(key,read(key).filter(x=>x.id!==id));renderAll()}
+function saveReport(){const r={id:Date.now(),date:$('rDate').value||new Date().toISOString().slice(0,10),customerId:$('rCustomer').value,vehicleId:$('rVehicle').value,codes:$('rCodes').value.trim(),findings:$('rFindings').value.trim(),actions:$('rActions').value.trim()};if(!r.vehicleId&&!r.codes&&!r.findings){alert(tr('needFields'));return}const a=read('reports');a.unshift(r);write('reports',a);renderAll();alert(tr('saved'))}
+function customerName(id){const c=read('customers').find(x=>String(x.id)===String(id));return c?c.name:'—'}
+function vehicleName(id){const v=read('vehicles').find(x=>String(x.id)===String(id));return v?[v.make,v.model,v.year,v.engine].filter(Boolean).join(' '):'—'}
+function table(headers,rows){if(!rows.length)return '<div class="empty">'+tr('noData')+'</div>';return '<div class="tablewrap"><table><thead><tr>'+headers.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>'}
+function renderAll(){
+ const cs=read('customers'),vs=read('vehicles'),rs=read('reports');$('statVehicles').textContent=vs.length;$('statCustomers').textContent=cs.length;$('statReports').textContent=rs.length;
+ $('customerTable').innerHTML=table([tr('customerName'),tr('phone'),tr('email'),tr('delete')],cs.map(c=>'<tr><td>'+esc(c.name)+'</td><td>'+esc(c.phone)+'</td><td>'+esc(c.email)+'</td><td><button class="btn danger" onclick="delItem(\'customers\','+c.id+')">'+tr('delete')+'</button></td></tr>'));
+ $('vehicleTable').innerHTML=table([tr('vehicle'),tr('engine'),tr('customer'), 'VIN',tr('delete')],vs.map(v=>'<tr><td>'+esc(vehicleName(v.id))+'</td><td>'+esc(v.engine)+'</td><td>'+esc(customerName(v.customerId))+'</td><td>'+esc(v.vin)+'</td><td><button class="btn danger" onclick="delItem(\'vehicles\','+v.id+')">'+tr('delete')+'</button></td></tr>'));
+ $('vCustomer').innerHTML='<option value="">—</option>'+cs.map(c=>'<option value="'+c.id+'">'+esc(c.name)+'</option>').join('');
+ $('rCustomer').innerHTML='<option value="">—</option>'+cs.map(c=>'<option value="'+c.id+'">'+esc(c.name)+'</option>').join('');
+ $('rVehicle').innerHTML='<option value="">—</option>'+vs.map(v=>'<option value="'+v.id+'">'+esc(vehicleName(v.id))+'</option>').join('');
+ $('reportTable').innerHTML=table([tr('reportDate'),tr('customer'),tr('vehicle'),tr('faultCodes'),tr('printPdf')],rs.map(r=>'<tr><td>'+esc(r.date)+'</td><td>'+esc(customerName(r.customerId))+'</td><td>'+esc(vehicleName(r.vehicleId))+'</td><td>'+esc(r.codes)+'</td><td><button class="btn" onclick="printReport('+r.id+')">'+tr('printPdf')+'</button> <button class="btn danger" onclick="delItem(\'reports\','+r.id+')">'+tr('delete')+'</button></td></tr>'));
+}
+function reportMarkup(r){return '<h1>ELI PERFORMANCE</h1><h2>DIAGNOSTIC REPORT</h2><p><b>Date:</b> '+esc(r.date)+'</p><p><b>Customer:</b> '+esc(customerName(r.customerId))+'</p><p><b>Vehicle:</b> '+esc(vehicleName(r.vehicleId))+'</p><p><b>Fault codes:</b> '+esc(r.codes||'—')+'</p><h3>Diagnostic findings</h3><p>'+esc(r.findings||'—').replace(/\n/g,'<br>')+'</p><h3>Recommendations / work performed</h3><p>'+esc(r.actions||'—').replace(/\n/g,'<br>')+'</p><hr><p>Owner by Elion Musliu · 044 400 761</p>'}
+function printReport(id){const r=read('reports').find(x=>x.id===id);if(!r)return;$('reportPrint').innerHTML=reportMarkup(r);window.print()}
+function printLatest(){const r=read('reports')[0];if(!r){alert(tr('noData'));return}printReport(r.id)}
+function exportData(){const payload={customers:read('customers'),vehicles:read('vehicles'),reports:read('reports'),exportedAt:new Date().toISOString()};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='eli-performance-backup.json';a.click();URL.revokeObjectURL(a.href)}
+$('rDate').value=new Date().toISOString().slice(0,10);renderAll();loadDatabase();applyLanguage();
+</script>
+</body>
+</html>
